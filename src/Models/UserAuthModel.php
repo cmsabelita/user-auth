@@ -23,15 +23,21 @@ class UserAuthModel{
         });
     }
 
-    public function validateUser($id, $payload){
+    public function validateUser($payload){
         return DB::table('sessions')
                 ->select('*')
                 ->leftjoin('users_departments', 'users_departments.user_id', '=', 'sessions.user_id')
                 ->leftjoin('departments', 'departments.id', '=', 'users_departments.department_id')
                 ->where('payload', $payload)
-                ->where('sessions.user_id', $id)
+                // ->where('sessions.user_id', $id)
                 ->first();
     }
-   
 
+    public function getAuthType($client_id, $client_secret){
+        return DB::table('user_auth_client')
+                ->select('*')
+                ->where('id', $client_id)
+                ->where('secret', $client_secret)
+                ->first();
+    }
 }
