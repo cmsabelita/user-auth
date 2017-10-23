@@ -24,7 +24,7 @@ class UserAuthController{
             
             $session = $this->user->createSession($session_details);
             $valid_key = $this->user->getAuthType($client_id, $client_secret);
-
+            dd('test');
             if($session){
                 if($valid_key){
                     $result = array(
